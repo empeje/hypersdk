@@ -72,26 +72,26 @@ else
 fi
 "${DEPLOY_ARTIFACT_PREFIX}/avalancheup-aws" --help
 
-# Install token-cli
-echo 'installing token-cli...'
-if [ -f /tmp/avalanche-ops-cache/token-cli ]; then
-  cp /tmp/avalanche-ops-cache/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
-  echo 'found token-cli in cache'
+# Install morpheus-cli
+echo 'installing morpheus-cli...'
+if [ -f /tmp/avalanche-ops-cache/morpheus-cli ]; then
+  cp /tmp/avalanche-ops-cache/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
+  echo 'found morpheus-cli in cache'
 else
   wget "https://github.com/ava-labs/hypersdk/releases/download/v${HYPERSDK_VERSION}/tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz"
   mkdir -p /tmp/token-installs
   tar -xvf "tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz" -C /tmp/token-installs
   rm -rf "tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz"
-  mv /tmp/token-installs/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
+  mv /tmp/token-installs/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
   rm -rf /tmp/token-installs
-  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli" /tmp/avalanche-ops-cache/token-cli
+  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli" /tmp/avalanche-ops-cache/morpheus-cli
 fi
 
 # Download tokenvm
 echo 'downloading tokenvm...'
 if [ -f /tmp/avalanche-ops-cache/tokenvm ]; then
   cp /tmp/avalanche-ops-cache/tokenvm "${DEPLOY_ARTIFACT_PREFIX}/tokenvm"
-  cp /tmp/avalanche-ops-cache/token-cli-dev "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
+  cp /tmp/avalanche-ops-cache/morpheus-cli-dev "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
   echo 'found tokenvm in cache'
 else
   wget "https://github.com/ava-labs/hypersdk/releases/download/v${HYPERSDK_VERSION}/tokenvm_${HYPERSDK_VERSION}_linux_amd64.tar.gz"
@@ -99,10 +99,10 @@ else
   tar -xvf tokenvm_"${HYPERSDK_VERSION}"_linux_amd64.tar.gz -C /tmp/token-installs
   rm -rf tokenvm_"${HYPERSDK_VERSION}"_linux_amd64.tar.gz
   mv /tmp/token-installs/tokenvm "${DEPLOY_ARTIFACT_PREFIX}/tokenvm"
-  mv /tmp/token-installs/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
+  mv /tmp/token-installs/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
   rm -rf /tmp/token-installs
   cp "${DEPLOY_ARTIFACT_PREFIX}/tokenvm" /tmp/avalanche-ops-cache/tokenvm
-  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev" /tmp/avalanche-ops-cache/token-cli-dev
+  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev" /tmp/avalanche-ops-cache/morpheus-cli-dev
 fi
 
 # Setup genesis and configuration files

@@ -72,26 +72,26 @@ else
 fi
 "${DEPLOY_ARTIFACT_PREFIX}/avalancheup-aws" --help
 
-# Install token-cli
-echo 'installing token-cli...'
-if [ -f /tmp/avalanche-ops-cache/token-cli ]; then
-  cp /tmp/avalanche-ops-cache/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
-  echo 'found token-cli in cache'
+# Install morpheus-cli
+echo 'installing morpheus-cli...'
+if [ -f /tmp/avalanche-ops-cache/morpheus-cli ]; then
+  cp /tmp/avalanche-ops-cache/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli"
+  echo 'found morpheus-cli in cache'
 else
   wget "https://github.com/ava-labs/hypersdk/releases/download/v${HYPERSDK_VERSION}/tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz"
   mkdir -p /tmp/token-installs
   tar -xvf "tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz" -C /tmp/token-installs
   rm -rf "tokenvm_${HYPERSDK_VERSION}_${DEPLOYER_OS_TYPE}_${DEPLOYER_ARCH_TYPE}.tar.gz"
-  mv /tmp/token-installs/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli"
+  mv /tmp/token-installs/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli"
   rm -rf /tmp/token-installs
-  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli" /tmp/avalanche-ops-cache/token-cli
+  cp "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli" /tmp/avalanche-ops-cache/morpheus-cli
 fi
 
 # Download tokenvm
 echo 'downloading tokenvm...'
 if [ -f /tmp/avalanche-ops-cache/tokenvm ]; then
   cp /tmp/avalanche-ops-cache/tokenvm "${DEPLOY_ARTIFACT_PREFIX}/tokenvm"
-  cp /tmp/avalanche-ops-cache/token-cli-dev "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
+  cp /tmp/avalanche-ops-cache/morpheus-cli-dev "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli-dev"
   echo 'found tokenvm in cache'
 else
   wget "https://github.com/ava-labs/hypersdk/releases/download/v${HYPERSDK_VERSION}/tokenvm_${HYPERSDK_VERSION}_linux_amd64.tar.gz"
@@ -99,10 +99,10 @@ else
   tar -xvf tokenvm_"${HYPERSDK_VERSION}"_linux_amd64.tar.gz -C /tmp/token-installs
   rm -rf tokenvm_"${HYPERSDK_VERSION}"_linux_amd64.tar.gz
   mv /tmp/token-installs/tokenvm "${DEPLOY_ARTIFACT_PREFIX}/tokenvm"
-  mv /tmp/token-installs/token-cli "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev"
+  mv /tmp/token-installs/morpheus-cli "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli-dev"
   rm -rf /tmp/token-installs
   cp "${DEPLOY_ARTIFACT_PREFIX}/tokenvm" /tmp/avalanche-ops-cache/tokenvm
-  cp "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev" /tmp/avalanche-ops-cache/token-cli-dev
+  cp "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli-dev" /tmp/avalanche-ops-cache/morpheus-cli-dev
 fi
 
 # Setup genesis and configuration files
@@ -125,7 +125,7 @@ EOF
 #
 # TODO: make fee params configurable via ENV
 MAX_UINT64=18446744073709551615
-"${DEPLOY_ARTIFACT_PREFIX}/token-cli" genesis generate "${DEPLOY_ARTIFACT_PREFIX}/allocations.json" \
+"${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli" genesis generate "${DEPLOY_ARTIFACT_PREFIX}/allocations.json" \
 --genesis-file "${DEPLOY_ARTIFACT_PREFIX}/tokenvm-genesis.json" \
 --max-block-units 1800000,"${MAX_UINT64}","${MAX_UINT64}","${MAX_UINT64}","${MAX_UINT64}" \
 --window-target-units "${MAX_UINT64}","${MAX_UINT64}","${MAX_UINT64}","${MAX_UINT64}","${MAX_UINT64}" \
@@ -239,15 +239,15 @@ do
   sleep 5
 done
 cd "$pw"
-scp -o "StrictHostKeyChecking=no" -i "${DEPLOY_PREFIX}/${ACCESS_KEY}" "${DEPLOY_ARTIFACT_PREFIX}/token-cli-dev" "ubuntu@${DEV_MACHINE_IP}:/tmp/token-cli"
+scp -o "StrictHostKeyChecking=no" -i "${DEPLOY_PREFIX}/${ACCESS_KEY}" "${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli-dev" "ubuntu@${DEV_MACHINE_IP}:/tmp/morpheus-cli"
 scp -o "StrictHostKeyChecking=no" -i "${DEPLOY_PREFIX}/${ACCESS_KEY}" demo.pk "ubuntu@${DEV_MACHINE_IP}:/home/ubuntu/demo.pk"
 scp -o "StrictHostKeyChecking=no" -i "${DEPLOY_PREFIX}/${ACCESS_KEY}" scripts/setup.dev-machine.sh "ubuntu@${DEV_MACHINE_IP}:/home/ubuntu/setup.sh"
 ssh -o "StrictHostKeyChecking=no" -i "${DEPLOY_PREFIX}/${ACCESS_KEY}" "ubuntu@${DEV_MACHINE_IP}" /home/ubuntu/setup.sh
 echo 'setup dev machine'
 
 # Generate prometheus link
-"${DEPLOY_ARTIFACT_PREFIX}/token-cli" chain import-ops "${DEPLOY_PREFIX}/${SPEC_FILE}"
-"${DEPLOY_ARTIFACT_PREFIX}/token-cli" prometheus generate --prometheus-start=false --prometheus-base-uri="http://${DEV_MACHINE_IP}:9090"
+"${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli" chain import-ops "${DEPLOY_PREFIX}/${SPEC_FILE}"
+"${DEPLOY_ARTIFACT_PREFIX}/morpheus-cli" prometheus generate --prometheus-start=false --prometheus-base-uri="http://${DEV_MACHINE_IP}:9090"
 
 # Print final logs
 cat << EOF
@@ -257,11 +257,11 @@ ssh -o "StrictHostKeyChecking no" -i ${DEPLOY_PREFIX}/${ACCESS_KEY} ubuntu@${DEV
 
 to view activity (on the dev machine), run the following command:
 
-/tmp/token-cli chain watch --hide-txs
+/tmp/morpheus-cli chain watch --hide-txs
 
 to run a spam script (on the dev machine), run the following command:
 
-/tmp/token-cli spam run
+/tmp/morpheus-cli spam run
 
 to delete all resources (excluding asg/ssm), run the following command:
 

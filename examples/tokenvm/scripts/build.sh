@@ -37,10 +37,10 @@ echo "Building tokenvm in $BINARY_PATH"
 mkdir -p "$(dirname "$BINARY_PATH")"
 go build -o "$BINARY_PATH" ./cmd/tokenvm
 
-CLI_PATH=$TOKENVM_PATH/build/token-cli
+CLI_PATH=$TOKENVM_PATH/build/morpheus-cli
 echo "Building token-cli in $CLI_PATH"
 mkdir -p "$(dirname "$CLI_PATH")"
-go build -o "$CLI_PATH" ./cmd/token-cli
+go build -o "$CLI_PATH" ./cmd/morpheus-cli
 
 FAUCET_PATH=$TOKENVM_PATH/build/token-faucet
 echo "Building token-faucet in $FAUCET_PATH"

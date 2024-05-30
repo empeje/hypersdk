@@ -14,9 +14,9 @@ rm -rf prometheus-2.43.0.linux-amd64
 
 # Import chains and demo.pk key
 #
-# Assumes token-cli has already been transferred into the machine
-/tmp/token-cli chain import-ops aops.yml
-/tmp/token-cli key import demo.pk
+# Assumes morpheus-cli has already been transferred into the machine
+/tmp/morpheus-cli chain import-ops aops.yml
+/tmp/morpheus-cli key import demo.pk
 
 # Start prometheus server
-tmux new-session -d -s prometheus '/tmp/token-cli prometheus generate --prometheus-open-browser=false --prometheus-start=true'
+tmux new-session -d -s prometheus '/tmp/morpheus-cli prometheus generate --prometheus-open-browser=false --prometheus-start=true'

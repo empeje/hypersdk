@@ -1,7 +1,7 @@
 // Copyright (C) 2023, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
-// "token-cli" implements tokenvm client operation interface.
+// "morpheus-cli" implements tokenvm client operation interface.
 package main
 
 import (
@@ -13,7 +13,7 @@ import (
 
 func main() {
 	if err := cmd.Execute(); err != nil {
-		utils.Outf("{{red}}token-cli exited with error:{{/}} %+v\n", err)
+		utils.Outf("{{red}}morpheus-cli exited with error:{{/}} %+v\n", err)
 		os.Exit(1)
 	}
 	os.Exit(0)

@@ -15,7 +15,7 @@ import (
 
 const (
 	fsModeWrite     = 0o600
-	defaultDatabase = ".token-cli"
+	defaultDatabase = ".morpheus-cli"
 	defaultGenesis  = "genesis.json"
 )
 
@@ -41,9 +41,9 @@ var (
 	numCores              int
 
 	rootCmd = &cobra.Command{
-		Use:        "token-cli",
+		Use:        "morpheus-cli",
 		Short:      "TokenVM CLI",
-		SuggestFor: []string{"token-cli", "tokencli"},
+		SuggestFor: []string{"morpheus-cli", "tokencli"},
 	}
 )
 

@@ -3,9 +3,9 @@
 
 # ref. https://goreleaser.com/customization/build/
 builds:
-  - id: token-cli
-    main: ./cmd/token-cli
-    binary: token-cli
+  - id: morpheus-cli
+    main: ./cmd/morpheus-cli
+    binary: morpheus-cli
     flags:
       - -v
     goos:

@@ -128,8 +128,8 @@ _This command will put the compiled CLI in `./build/token-cli`._
 Lastly, you'll need to add the chains you created and the default key to the
 `token-cli`. You can use the following commands from this location to do so:
 ```bash
-./build/token-cli key import demo.pk
-./build/token-cli chain import-anr
+./build/morpheus-cli key import demo.pk
+./build/morpheus-cli chain import-anr
 ```
 
 _`chain import-anr` connects to the Avalanche Network Runner server running in
@@ -141,7 +141,7 @@ created._
 First up, let's create our own asset. You can do so by running the following
 command from this location:
 ```bash
-./build/token-cli action create-asset
+./build/morpheus-cli action create-asset
 ```
 
 When you are done, the output should look something like this:
@@ -164,7 +164,7 @@ use this key to authenticate all interactions with the `tokenvm`.
 After we've created our own asset, we can now mint some of it. You can do so by
 running the following command from this location:
 ```bash
-./build/token-cli action mint-asset
+./build/morpheus-cli action mint-asset
 ```
 
 When you are done, the output should look something like this (usually easiest
@@ -184,7 +184,7 @@ continue (y/n): y
 Now, let's check that the mint worked right by checking our balance. You can do
 so by running the following command from this location:
 ```bash
-./build/token-cli key balance
+./build/morpheus-cli key balance
 ```
 
 When you are done, the output should look something like this:
@@ -203,7 +203,7 @@ So, we have some of our token (`MARIO`)...now what? Let's put an order
 on-chain that will allow someone to trade the native token (`TKN`) for some.
 You can do so by running the following command from this location:
 ```bash
-./build/token-cli action create-order
+./build/morpheus-cli action create-order
 ```
 
 When you are done, the output should look something like this:
@@ -232,7 +232,7 @@ computing decimal rates on-chain).
 Now that we have an order on-chain, let's fill it! You can do so by running the
 following command from this location:
 ```bash
-./build/token-cli action fill-order
+./build/morpheus-cli action fill-order
 ```
 
 When you are done, the output should look something like this:
@@ -261,7 +261,7 @@ Let's say we now changed our mind and no longer want to allow others to fill
 our order. You can cancel it by running the following command from this
 location:
 ```bash
-./build/token-cli action close-order
+./build/morpheus-cli action close-order
 ```
 
 When you are done, the output should look something like this:
@@ -283,7 +283,7 @@ To provide a better sense of what is actually happening on-chain, the
 occur on-chain. You can run this utility by running the following command from
 this location:
 ```bash
-./build/token-cli chain watch
+./build/morpheus-cli chain watch
 ```
 
 If you run it correctly, you'll see the following input (will run until the

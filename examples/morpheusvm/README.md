@@ -116,20 +116,20 @@ key for this address is
 `0x323b1d8f4eed5f0da9da93071b034f2dce9d2d22692c172f3cb252a64ddfafd01b057de320297c29ad0c1f589ea216869cf1938d88c9fbd70d6748323dbf2fa7`.
 For convenience, this key has is also stored at `demo.pk`._
 
-To make it easy to interact with the `tokenvm`, we implemented the `token-cli`.
+To make it easy to interact with the `tokenvm`, we implemented the `morpheus-cli`.
 Next, you'll need to build this. You can use the following command from this location
 to do so:
 ```bash
 ./scripts/build.sh
 ```
 
-_This command will put the compiled CLI in `./build/token-cli`._
+_This command will put the compiled CLI in `./build/morpheus-cli`._
 
 Lastly, you'll need to add the chains you created and the default key to the
-`token-cli`. You can use the following commands from this location to do so:
+`morpheus-cli`. You can use the following commands from this location to do so:
 ```bash
-./build/token-cli key import demo.pk
-./build/token-cli chain import-anr
+./build/morpheus-cli key import demo.pk
+./build/morpheus-cli chain import-anr
 ```
 
 _`chain import-anr` connects to the Avalanche Network Runner server running in
@@ -141,12 +141,12 @@ created._
 First up, let's create our own asset. You can do so by running the following
 command from this location:
 ```bash
-./build/token-cli action create-asset
+./build/morpheus-cli action create-asset
 ```
 
 When you are done, the output should look something like this:
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 chainID: 2btpGNEt7pGXxYUMk7Pp3TTiq8ij4JsrDxTv9oNB46wpwqLVQ9
 symbol: MARIO
@@ -164,13 +164,13 @@ use this key to authenticate all interactions with the `tokenvm`.
 After we've created our own asset, we can now mint some of it. You can do so by
 running the following command from this location:
 ```bash
-./build/token-cli action mint-asset
+./build/morpheus-cli action mint-asset
 ```
 
 When you are done, the output should look something like this (usually easiest
 just to mint to yourself).
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 chainID: 2btpGNEt7pGXxYUMk7Pp3TTiq8ij4JsrDxTv9oNB46wpwqLVQ9
 assetID: 2r9rd3oUGfir4pnmkyy7aBUcScQrkuqbYjdmxaJDAe1pb2Je8u
@@ -184,12 +184,12 @@ continue (y/n): y
 Now, let's check that the mint worked right by checking our balance. You can do
 so by running the following command from this location:
 ```bash
-./build/token-cli key balance
+./build/morpheus-cli key balance
 ```
 
 When you are done, the output should look something like this:
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 chainID: 2btpGNEt7pGXxYUMk7Pp3TTiq8ij4JsrDxTv9oNB46wpwqLVQ9
 assetID (use TKN for native token): 2r9rd3oUGfir4pnmkyy7aBUcScQrkuqbYjdmxaJDAe1pb2Je8u
@@ -203,12 +203,12 @@ So, we have some of our token (`MARIO`)...now what? Let's put an order
 on-chain that will allow someone to trade the native token (`TKN`) for some.
 You can do so by running the following command from this location:
 ```bash
-./build/token-cli action create-order
+./build/morpheus-cli action create-order
 ```
 
 When you are done, the output should look something like this:
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 chainID: 2btpGNEt7pGXxYUMk7Pp3TTiq8ij4JsrDxTv9oNB46wpwqLVQ9
 in assetID (use TKN for native token): TKN
@@ -232,12 +232,12 @@ computing decimal rates on-chain).
 Now that we have an order on-chain, let's fill it! You can do so by running the
 following command from this location:
 ```bash
-./build/token-cli action fill-order
+./build/morpheus-cli action fill-order
 ```
 
 When you are done, the output should look something like this:
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 chainID: 2btpGNEt7pGXxYUMk7Pp3TTiq8ij4JsrDxTv9oNB46wpwqLVQ9
 in assetID (use TKN for native token): TKN
@@ -261,12 +261,12 @@ Let's say we now changed our mind and no longer want to allow others to fill
 our order. You can cancel it by running the following command from this
 location:
 ```bash
-./build/token-cli action close-order
+./build/morpheus-cli action close-order
 ```
 
 When you are done, the output should look something like this:
 ```
-database: .token-cli
+database: .morpheus-cli
 address: token1qrzvk4zlwj9zsacqgtufx7zvapd3quufqpxk5rsdd4633m4wz2fdj73w34s
 orderID: 2hJdJV2JisA1ESQ2SbGapjHn9ZetouU6TyptMNLsRgufQK1hVc
 out assetID (use TKN for native token): 2r9rd3oUGfir4pnmkyy7aBUcScQrkuqbYjdmxaJDAe1pb2Je8u
@@ -279,17 +279,17 @@ account.
 
 #### Bonus: Watch Activity in Real-Time
 To provide a better sense of what is actually happening on-chain, the
-`token-cli` comes bundled with a simple explorer that logs all blocks/txs that
+`morpheus-cli` comes bundled with a simple explorer that logs all blocks/txs that
 occur on-chain. You can run this utility by running the following command from
 this location:
 ```bash
-./build/token-cli chain watch
+./build/morpheus-cli chain watch
 ```
 
 If you run it correctly, you'll see the following input (will run until the
 network shuts down or you exit):
 ```
-database: .token-cli
+database: .morpheus-cli
 available chains: 2 excluded: []
 0) chainID: Em2pZtHr7rDCzii43an2bBi1M2mTFyLN33QP1Xfjy7BcWtaH9
 1) chainID: cKVefMmNPSKmLoshR15Fzxmx52Y5yUSPqWiJsNFUg1WgNQVMX

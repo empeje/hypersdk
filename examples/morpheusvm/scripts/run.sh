@@ -106,8 +106,8 @@ go build \
 -o "${TMPDIR}"/avalanchego-"${VERSION}"/plugins/tHBYNu8ikqo4MWMHehC9iKB9mR5tB3DWzbkYmTfe9buWQ5GZ8 \
 ./cmd/tokenvm
 
-echo "building token-cli"
-go build -v -o "${TMPDIR}"/token-cli ./cmd/token-cli
+echo "building morpheus-cli"
+go build -v -o "${TMPDIR}"/morpheus-cli ./cmd/morpheus-cli
 
 # log everything in the avalanchego directory
 find "${TMPDIR}"/avalanchego-"${VERSION}"
@@ -130,7 +130,7 @@ GENESIS_PATH=$2
 if [[ -z "${GENESIS_PATH}" ]]; then
   echo "creating VM genesis file with allocations"
   rm -f "${TMPDIR}"/tokenvm.genesis
-  "${TMPDIR}"/token-cli genesis generate "${TMPDIR}"/allocations.json \
+  "${TMPDIR}"/morpheus-cli genesis generate "${TMPDIR}"/allocations.json \
   --window-target-units "${WINDOW_TARGET_UNITS}" \
   --max-block-units "${MAX_BLOCK_UNITS}" \
   --min-block-gap "${MIN_BLOCK_GAP}" \
